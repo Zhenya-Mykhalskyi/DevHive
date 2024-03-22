@@ -1,5 +1,3 @@
-import 'package:dev_hive_test_task/features/users_list/cubit/user_list_cubit.dart';
-import 'package:dev_hive_test_task/repositories/users/users_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
@@ -8,6 +6,8 @@ import 'package:get_it/get_it.dart';
 import 'package:dev_hive_test_task/features/post_comments/cubit/post_comments_cubit.dart';
 import 'package:dev_hive_test_task/features/user_posts/cubit/user_posts_cubit.dart';
 import 'package:dev_hive_test_task/features/user_posts/view/user_post_screen.dart';
+import 'package:dev_hive_test_task/features/users_list/cubit/user_list_cubit.dart';
+import 'package:dev_hive_test_task/repositories/users/users_repository.dart';
 import 'package:dev_hive_test_task/repositories/comments/comments_repository.dart';
 import 'package:dev_hive_test_task/repositories/posts/posts_repository.dart';
 import 'package:dev_hive_test_task/theme/app_theme.dart';

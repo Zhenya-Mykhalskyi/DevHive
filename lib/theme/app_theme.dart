@@ -14,6 +14,7 @@ class AppTheme {
     colorScheme: const ColorScheme.dark(),
     canvasColor: AppColors.backgraundColor,
     scaffoldBackgroundColor: AppColors.backgraundColor,
+    dialogBackgroundColor: const Color.fromARGB(255, 42, 42, 42),
     appBarTheme: const AppBarTheme(
       centerTitle: true,
       color: AppColors.blackColor,

@@ -25,6 +25,31 @@ class CommentItem extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  surfaceTintColor: Theme.of(context).dialogBackgroundColor,
+                  title: Text(
+                    comment.email,
+                    style: const TextStyle(fontSize: 15),
+                  ),
+                  content: SingleChildScrollView(
+                    child: Text(comment.body),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Close'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         ),
         Divider(color: Theme.of(context).dividerColor),
       ],
