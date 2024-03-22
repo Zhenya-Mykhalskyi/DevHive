@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dev_hive_test_task/features/user_posts/cubit/user_posts_cubit.dart';
 import 'package:dev_hive_test_task/features/user_posts/widgets/post_item.dart';
 import 'package:dev_hive_test_task/features/users_list/view/user_list_screen.dart';
+import 'package:dev_hive_test_task/widgets/custom_error_widget.dart';
 
 class UserPostsScreen extends StatefulWidget {
   final int userId;
@@ -68,8 +69,11 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
               ),
             );
           } else if (state is PostsError) {
-            return Center(
-              child: Text('Error: ${state.message}'),
+            return CustomErrorWidget(
+              errorMessage: state.message,
+              onPressed: () {
+                _postCubit.getUserPostsAndNameById(widget.userId);
+              },
             );
           } else {
             return const Center(

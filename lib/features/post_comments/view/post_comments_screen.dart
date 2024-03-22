@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:dev_hive_test_task/features/post_comments/cubit/post_comments_cubit.dart';
 import 'package:dev_hive_test_task/features/post_comments/widgets/comment_item.dart';
+import 'package:dev_hive_test_task/widgets/custom_error_widget.dart';
 
 class PostCommentsScreen extends StatefulWidget {
   final int postId;
@@ -55,8 +56,11 @@ class _PostCommentsScreenState extends State<PostCommentsScreen> {
               ),
             );
           } else if (state is PostCommentsError) {
-            return Center(
-              child: Text('Error: ${state.message}'),
+            return CustomErrorWidget(
+              errorMessage: state.message,
+              onPressed: () {
+                _commentsCubit.getCommentsByPostId(widget.postId);
+              },
             );
           } else {
             return const Center(

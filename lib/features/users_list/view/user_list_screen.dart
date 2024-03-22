@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:dev_hive_test_task/features/users_list/widgets/user_list_item.dart';
 import 'package:dev_hive_test_task/features/users_list/cubit/user_list_cubit.dart';
+import 'package:dev_hive_test_task/widgets/custom_error_widget.dart';
 
 class UsersListScreen extends StatefulWidget {
   const UsersListScreen({Key? key}) : super(key: key);
@@ -47,8 +48,11 @@ class _UsersListScreenState extends State<UsersListScreen> {
               ),
             );
           } else if (state is UserListError) {
-            return Center(
-              child: Text('Error: ${state.message}'),
+            return CustomErrorWidget(
+              errorMessage: state.message,
+              onPressed: () {
+                _userListCubit.getAllPosts();
+              },
             );
           } else {
             return const Center(
