@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:dev_hive_test_task/features/user_posts/cubit/user_posts_cubit.dart';
 import 'package:dev_hive_test_task/features/user_posts/widgets/post_item.dart';
+import 'package:dev_hive_test_task/features/users_list/view/user_list_screen.dart';
 
 class UserPostsScreen extends StatefulWidget {
   final int userId;
@@ -20,7 +21,7 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
   void initState() {
     super.initState();
     _postCubit = context.read<UserPostsCubit>();
-    _postCubit.getPostsAndNameByUserId(widget.userId);
+    _postCubit.getUserPostsAndNameById(widget.userId);
   }
 
   @override
@@ -36,6 +37,18 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
             }
           },
         ),
+        actions: [
+          IconButton(
+              icon: Image.asset(
+                'assets/images/userIcon.png',
+                width: 20,
+                height: 20,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const UsersListScreen()));
+              }),
+        ],
       ),
       body: BlocBuilder<UserPostsCubit, PostsState>(
         builder: (context, state) {

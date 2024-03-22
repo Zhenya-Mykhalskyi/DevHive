@@ -13,21 +13,12 @@ class UserPostsCubit extends Cubit<PostsState> {
 
   String _userName = '';
 
-  Future<void> getPostsAndNameByUserId(int userId) async {
+  Future<void> getUserPostsAndNameById(int userId) async {
     try {
       emit(PostsLoading());
       final posts = await _postRepository.getPostsByUserId(userId);
       _userName = await _postRepository.getUserNameById(userId);
-      emit(PostsLoaded(posts));
-    } catch (error) {
-      emit(PostsError('Failed to fetch posts: $error'));
-    }
-  }
 
-  Future<void> getAllPosts() async {
-    try {
-      emit(PostsLoading());
-      final posts = await _postRepository.getAllPosts();
       emit(PostsLoaded(posts));
     } catch (error) {
       emit(PostsError('Failed to fetch posts: $error'));

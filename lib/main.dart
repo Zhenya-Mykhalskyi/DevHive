@@ -1,3 +1,5 @@
+import 'package:dev_hive_test_task/features/users_list/cubit/user_list_cubit.dart';
+import 'package:dev_hive_test_task/repositories/users/users_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<PostCommentsCubit>(
             create: (_) =>
                 PostCommentsCubit(CommentsRepository(dio: talker<Dio>()))),
+        BlocProvider<UserListCubit>(
+            create: (_) => UserListCubit(UsersRepository(dio: talker<Dio>()))),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
