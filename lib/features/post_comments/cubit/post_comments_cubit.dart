@@ -1,14 +1,23 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+
 import 'package:dev_hive_test_task/repositories/comments/comments_repository.dart';
 import 'package:dev_hive_test_task/repositories/comments/models/comment_model.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CommentsCubit extends Cubit<List<CommentModel>> {
+part 'post_comments_state.dart';
+
+class PostCommentsCubit extends Cubit<PostCommentsState> {
   final CommentsRepository _commentsRepository;
 
-  CommentsCubit(this._commentsRepository) : super([]);
+  PostCommentsCubit(this._commentsRepository) : super(PostCommentsInitial());
 
   Future<void> getCommentsByPostId(int postId) async {
-    final comments = await _commentsRepository.getCommentsByPostId(postId);
-    emit(comments);
+    try {
+      emit(PostCommentsLoading());
+      final comments = await _commentsRepository.getCommentsByPostId(postId);
+      emit(PostCommentsLoaded(comments));
+    } catch (e) {
+      emit(PostCommentsError('Failed to load comments: $e'));
+    }
   }
 }

@@ -1,7 +1,7 @@
-import 'package:dev_hive_test_task/repositories/comments/abstract_comments_repository.dart';
 import 'package:dio/dio.dart';
 
 import 'package:dev_hive_test_task/repositories/comments/models/comment_model.dart';
+import 'package:dev_hive_test_task/repositories/comments/abstract_comments_repository.dart';
 
 class CommentsRepository implements AbstractCommentsRepository {
   final Dio dio;

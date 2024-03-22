@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:dev_hive_test_task/features/post_comments/view/post_comments_screen.dart';
 import 'package:dev_hive_test_task/repositories/posts/models/post_model.dart';
-import 'package:flutter/material.dart';
 
 class PostItem extends StatelessWidget {
   const PostItem({

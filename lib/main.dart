@@ -25,12 +25,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<PostsCubit>(
-          create: (_) => PostsCubit(PostsRepository(dio: talker<Dio>())),
+        BlocProvider<UserPostsCubit>(
+          create: (_) => UserPostsCubit(PostsRepository(dio: talker<Dio>())),
         ),
-        BlocProvider<CommentsCubit>(
+        BlocProvider<PostCommentsCubit>(
             create: (_) =>
-                CommentsCubit(CommentsRepository(dio: talker<Dio>()))),
+                PostCommentsCubit(CommentsRepository(dio: talker<Dio>()))),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
