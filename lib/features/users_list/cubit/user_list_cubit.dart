@@ -16,7 +16,7 @@ class UserListCubit extends Cubit<UserListState> {
       final users = await _usersRepository.getAllUsers();
       emit(UserListLoaded(users));
     } catch (error) {
-      emit(UserListError('Failed to fetch posts: $error'));
+      emit(UserListError('Failed to fetch users: $error'));
     }
   }
 }
