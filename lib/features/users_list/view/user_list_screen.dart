@@ -13,22 +13,22 @@ class UsersListScreen extends StatefulWidget {
 }
 
 class _UsersListScreenState extends State<UsersListScreen> {
-  late final UserListCubit _userListCubit;
+  late final UsersCubit _userListCubit;
 
   @override
   void initState() {
     super.initState();
-    _userListCubit = context.read<UserListCubit>();
-    _userListCubit.getAllPosts();
+    _userListCubit = context.read<UsersCubit>();
+    _userListCubit.getAllUsers();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DevHive'),
+        title: const Text('Users List'),
       ),
-      body: BlocBuilder<UserListCubit, UserListState>(
+      body: BlocBuilder<UsersCubit, UserListState>(
         builder: (context, state) {
           if (state is UserListLoading) {
             return const Center(
@@ -51,7 +51,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
             return CustomErrorWidget(
               errorMessage: state.message,
               onPressed: () {
-                _userListCubit.getAllPosts();
+                _userListCubit.getAllUsers();
               },
             );
           } else {

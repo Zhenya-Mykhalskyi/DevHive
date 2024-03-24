@@ -5,11 +5,12 @@ import 'package:dev_hive_test_task/features/user_posts/cubit/user_posts_cubit.da
 import 'package:dev_hive_test_task/features/user_posts/widgets/post_item.dart';
 import 'package:dev_hive_test_task/features/users_list/view/user_list_screen.dart';
 import 'package:dev_hive_test_task/widgets/custom_error_widget.dart';
+import 'package:dev_hive_test_task/features/users_list/cubit/user_list_cubit.dart';
 
 class UserPostsScreen extends StatefulWidget {
-  final int userId;
+  final int? userId;
 
-  const UserPostsScreen({Key? key, required this.userId}) : super(key: key);
+  const UserPostsScreen({Key? key, this.userId}) : super(key: key);
 
   @override
   State<UserPostsScreen> createState() => _UserPostsScreenState();
@@ -17,12 +18,28 @@ class UserPostsScreen extends StatefulWidget {
 
 class _UserPostsScreenState extends State<UserPostsScreen> {
   late final UserPostsCubit _postCubit;
-
+  late final UsersCubit _usersCubit;
+  int _lastUserId = 1;
   @override
   void initState() {
     super.initState();
     _postCubit = context.read<UserPostsCubit>();
-    _postCubit.getUserPostsAndNameById(widget.userId);
+    _usersCubit = context.read<UsersCubit>();
+
+    _fetchLastUserId();
+  }
+
+  Future<void> _fetchLastUserId() async {
+    try {
+      if (widget.userId != null) {
+        _lastUserId = widget.userId!;
+      } else {
+        _lastUserId = (await _usersCubit.getLastUserId())!;
+      }
+      _postCubit.getUserPostsAndNameById(_lastUserId);
+    } catch (e) {
+      throw Exception('Failed to fetch last user id: $e');
+    }
   }
 
   @override
@@ -72,7 +89,7 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
             return CustomErrorWidget(
               errorMessage: state.message,
               onPressed: () {
-                _postCubit.getUserPostsAndNameById(widget.userId);
+                _postCubit.getUserPostsAndNameById(_lastUserId);
               },
             );
           } else {

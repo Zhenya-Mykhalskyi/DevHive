@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:dev_hive_test_task/repositories/users/models/user_model.dart';
-import 'package:dev_hive_test_task/features/user_posts/view/user_post_screen.dart';
+import 'package:dev_hive_test_task/features/user_posts/view/user_posts_screen.dart';
+import 'package:dev_hive_test_task/features/users_list/cubit/user_list_cubit.dart';
 
 class UserListItem extends StatelessWidget {
   final UserModel user;
@@ -24,6 +26,8 @@ class UserListItem extends StatelessWidget {
               ),
               (route) => false,
             );
+            final usersCubit = context.read<UsersCubit>();
+            usersCubit.saveLastUserId(user.id);
           },
         ),
         Divider(

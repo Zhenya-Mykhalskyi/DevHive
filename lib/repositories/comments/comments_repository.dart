@@ -6,7 +6,9 @@ import 'package:dev_hive_test_task/repositories/comments/abstract_comments_repos
 class CommentsRepository implements AbstractCommentsRepository {
   final Dio dio;
 
-  CommentsRepository({required this.dio});
+  CommentsRepository({
+    required this.dio,
+  });
 
   @override
   Future<List<CommentModel>> getCommentsByPostId(int postId) async {

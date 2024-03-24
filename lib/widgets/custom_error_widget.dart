@@ -16,7 +16,8 @@ class CustomErrorWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text('Error occurred:'),
-          const SizedBox(height: 5),
+          const Text('Please check your internet connection'),
+          const SizedBox(height: 20),
           Text(
             errorMessage,
             textAlign: TextAlign.center,
