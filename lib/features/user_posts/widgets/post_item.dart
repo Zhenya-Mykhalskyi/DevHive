@@ -26,10 +26,39 @@ class PostItem extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
+          trailing: IconButton(
+            icon: const Icon(Icons.comment_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => PostCommentsScreen(
+                    postId: post.id,
+                  ),
+                ),
+              );
+            },
+          ),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => PostCommentsScreen(postId: post.id),
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                surfaceTintColor: Theme.of(context).dialogBackgroundColor,
+                title: Text(post.title),
+                content: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(post.body),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Close'),
+                  ),
+                ],
               ),
             );
           },

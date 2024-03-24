@@ -20,6 +20,7 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
   late final UserPostsCubit _postCubit;
   late final UsersCubit _usersCubit;
   int _lastUserId = 1;
+
   @override
   void initState() {
     super.initState();
@@ -31,11 +32,7 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
 
   Future<void> _fetchLastUserId() async {
     try {
-      if (widget.userId != null) {
-        _lastUserId = widget.userId!;
-      } else {
-        _lastUserId = (await _usersCubit.getLastUserId())!;
-      }
+      _lastUserId = widget.userId ?? (await _usersCubit.getLastUserId())!;
       _postCubit.getUserPostsAndNameById(_lastUserId);
     } catch (e) {
       throw Exception('Failed to fetch last user id: $e');
@@ -57,15 +54,16 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
         ),
         actions: [
           IconButton(
-              icon: Image.asset(
-                'assets/images/userIcon.png',
-                width: 20,
-                height: 20,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const UsersListScreen()));
-              }),
+            icon: Image.asset(
+              'assets/images/userIcon.png',
+              width: 20,
+              height: 20,
+            ),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const UsersListScreen()));
+            },
+          ),
         ],
       ),
       body: BlocBuilder<UserPostsCubit, PostsState>(
