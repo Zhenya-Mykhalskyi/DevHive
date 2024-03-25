@@ -27,15 +27,15 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
     _postCubit = context.read<UserPostsCubit>();
     _usersCubit = context.read<UsersCubit>();
 
-    _fetchLastUserId();
+    _fetchUserPostsAndName();
   }
 
-  Future<void> _fetchLastUserId() async {
+  Future<void> _fetchUserPostsAndName() async {
     try {
       _lastUserId = widget.userId ?? (await _usersCubit.getLastUserId())!;
       _postCubit.getUserPostsAndNameById(_lastUserId);
     } catch (e) {
-      throw Exception('Failed to fetch last user id: $e');
+      throw Exception('Failed to fetch last user posts and name: $e');
     }
   }
 
@@ -84,11 +84,13 @@ class _UserPostsScreenState extends State<UserPostsScreen> {
               ),
             );
           } else if (state is PostsError) {
-            return CustomErrorWidget(
-              errorMessage: state.message,
-              onPressed: () {
-                _postCubit.getUserPostsAndNameById(_lastUserId);
-              },
+            return Center(
+              child: CustomErrorWidget(
+                errorMessage: state.message,
+                onPressed: () {
+                  _postCubit.getUserPostsAndNameById(_lastUserId);
+                },
+              ),
             );
           } else {
             return const Center(
